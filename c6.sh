@@ -19,7 +19,7 @@ echo ""
 echo "#--> Creating a new State..."
 state_output=$(echo 'create State name="California"' | sudo -E HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db .//console.py)
 state_id=$(echo "$state_output" | grep -o -E '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
-echo "State ID: $state_id"
+echo "#--> State ID: $state_id"
 echo ""
 # List all States
 echo "#--> Listing all States..."
@@ -35,7 +35,7 @@ echo ""
 echo "#--> Creating a new City with State ID: $state_id..."
 city_output=$(echo "create City state_id=\"$state_id\" name=\"San_Francisco\"" | sudo -E HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db .//console.py)
 city_id=$(echo "$city_output" | grep -o -E '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
-echo "City ID: $city_id"
+echo "#--> City ID: $city_id"
 
 echo ""
 # List all Cities
