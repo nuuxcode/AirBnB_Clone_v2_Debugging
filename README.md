@@ -15,6 +15,7 @@ To get started, follow these steps:
 1. Place all the script files in the same folder where you have your `console.py` and `setup_mysql_dev.sql` files.
 2. Give executable permissions to the scripts using `chmod +x script_name.sh`.
 
+
 ## Task Execution
 
 When you execute a script for a specific task, it will perform the necessary actions and provide the expected results, just like the task examples.
@@ -23,6 +24,27 @@ When you execute a script for a specific task, it will perform the necessary act
 
 Notably, when you run the script for task 8, it automatically calls scripts for tasks 6 and 7.
 This is because creating a place in task 8 requires both a user ID and a city ID, which are obtained from tasks 6 and 7.
+
+## Task 10 Note
+
+**Important Note for Task 10:**
+
+Before executing the Task 10 script, ensure that you have created the file `main_place_amenities.py` in the root directory of the project following the example provided in the task.
+
+If you encounter import-related issues, consider the following modifications:
+
+- Remove the line: `from models import *`
+- Add the following individual import statements:
+
+```python
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models import storage
+```
+These changes should help resolve any import problems when running the script for Task 10.
 
 ## Benefits
 
