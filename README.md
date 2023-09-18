@@ -18,9 +18,9 @@ To get started, follow these steps:
 ```shell
 cd AirBnB_Clone_v2_Debugging
 ```
-3. Copy the task scripts (c6.sh, c7.sh, c8.sh, c10.sh) to the AirBnB directory
+3. Copy all the files to the AirBnB directory (sh files and config.txt):
 ```shell
-cp *.sh /Your/AirBnb/Path
+cp * /Your/AirBnb/Path
 ```
 4. Change your working directory to the AirBnB project
 ```shell
@@ -31,9 +31,15 @@ cd /Your/AirBnb/Path
 ./script_name.sh
 ```
 
-By following these steps, you'll be able to use the Bash scripts to test and verify different tasks in your AirBnB project effortlessly.
-
-Additionally, ensure that you have the necessary Python files console.py and (main_place_amenities.py for Task10) and the SQL setup file (setup_mysql_dev.sql) in the same folder as the scripts before running them.
+The config.txt file contains default MySQL configuration.
+```SQL
+HBNB_MYSQL_USER=hbnb_dev
+HBNB_MYSQL_PWD=hbnb_dev_pwd
+HBNB_MYSQL_HOST=localhost
+HBNB_MYSQL_DB=hbnb_dev_db
+HBNB_TYPE_STORAGE=db
+```
+Ensure that you have the necessary Python files console.py and (main_place_amenities.py for Task10) and the SQL setup file (setup_mysql_dev.sql) in the same folder as the scripts before running them.
 
 ## Task Execution
 
