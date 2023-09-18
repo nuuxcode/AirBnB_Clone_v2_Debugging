@@ -1,20 +1,18 @@
 # AirBnB v2 Debugging with Bash Scripts
 
-https://github.com/nuuxcode/AirBnB_Clone_v2_Test/assets/24565896/7fc6c299-9052-4af0-8c7e-0975d73c9ef5
-
 ## Introduction
 
-Debugging AirBnB projects can become challenging as you progress through related tasks. 
-To make the process easier, we've created a set of Bash scripts that allow you to test and verify various tasks effortlessly.
-Currently, we have scripts for tasks 6, 7, and 8, and we plan to add more for upcoming tasks.
+Debugging AirBnB projects can become challenging as you progress through related tasks. To make the process easier, we've created a set of Bash scripts that allow you to test and verify various tasks effortlessly. Currently, we have scripts for tasks 6, 7, 8, and 10, and we plan to add more for upcoming tasks.
 
 ## Usage
 
 To get started, follow these steps:
 
-1. Place all the script files in the same folder where you have your `console.py` and `setup_mysql_dev.sql` files.
+1. Ensure that you have the necessary Python files (`console.py` and `main_place_amenities.py`) and the SQL setup file (`setup_mysql_dev.sql`) in the same folder as the scripts.
+
 2. Give executable permissions to the scripts using `chmod +x script_name.sh`.
 
+3. Run the desired script by executing `./script_name.sh`.
 
 ## Task Execution
 
@@ -22,8 +20,7 @@ When you execute a script for a specific task, it will perform the necessary act
 
 ## Task 8 Automation
 
-Notably, when you run the script for task 8, it automatically calls scripts for tasks 6 and 7.
-This is because creating a place in task 8 requires both a user ID and a city ID, which are obtained from tasks 6 and 7.
+When you run the script for task 8, it automatically calls scripts for tasks 6 and 7. This is because creating a place in task 8 requires both a user ID and a city ID, which are obtained from tasks 6 and 7.
 
 ## Task 10 Note
 
