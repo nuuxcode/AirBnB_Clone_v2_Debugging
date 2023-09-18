@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Get the current working directory (path from where the script is called)
+current_path=$(pwd)
+
+# Set the path to setup_mysql_dev.sql
+sql_path="$current_path/setup_mysql_dev.sql"
+
+# Check if the required file exists
+if [ ! -f "$sql_path" ]; then
+    echo "Error: 'setup_mysql_dev.sql' not found in '$current_path'."
+    exit 1
+fi
+
 echo ""
 echo "--------------"
 echo "--- TASK10 ---"
@@ -12,7 +24,7 @@ echo "DROP DATABASE IF EXISTS hbnb_dev_db;" | sudo mysql
 echo ""
 # Execute MySQL setup script
 echo "#--> Executing MySQL setup script..."
-cat setup_mysql_dev.sql | sudo mysql
+cat "$sql_path" | sudo mysql
 
 echo ""
 # Set environment variables and run the Python script
