@@ -1,5 +1,7 @@
 # AirBnB v2 Debugging with Bash Scripts
 
+https://github.com/nuuxcode/AirBnB_Clone_v2_Test/assets/24565896/7fc6c299-9052-4af0-8c7e-0975d73c9ef5
+
 ## Introduction
 
 Debugging AirBnB projects can become challenging as you progress through related tasks. To make the process easier, we've created a set of Bash scripts that allow you to test and verify various tasks effortlessly. Currently, we have scripts for tasks 6, 7, 8, and 10, and we plan to add more for upcoming tasks.
@@ -8,15 +10,34 @@ Debugging AirBnB projects can become challenging as you progress through related
 
 To get started, follow these steps:
 
-1. Ensure that you have the necessary Python files (`console.py` and `main_place_amenities.py`) and the SQL setup file (`setup_mysql_dev.sql`) in the same folder as the scripts.
+1. Clone this repository to your local machine using the following command (outside of AirBnB_Clone_v2):
+```shell
+   git clone https://github.com/nuuxcode/AirBnB_Clone_v2_Debugging.git
+ ```
+2. Change your working directory to the cloned repository:
+```shell
+cd AirBnB_Clone_v2_Debugging
+```
+3. Copy the task scripts (c6.sh, c7.sh, c8.sh, c10.sh) to the AirBnB directory
+```shell
+cp *.sh /Your/AirBnb/Path
+```
+4. Change your working directory to the AirBnB project
+```shell
+cd /Your/AirBnb/Path
+```
+5. Run the desired script by executing
+```shell
+./script_name.sh
+```
 
-2. Give executable permissions to the scripts using `chmod +x script_name.sh`.
+By following these steps, you'll be able to use the Bash scripts to test and verify different tasks in your AirBnB project effortlessly.
 
-3. Run the desired script by executing `./script_name.sh`.
+Additionally, ensure that you have the necessary Python files console.py and (main_place_amenities.py for Task10) and the SQL setup file (setup_mysql_dev.sql) in the same folder as the scripts before running them.
 
 ## Task Execution
 
-When you execute a script for a specific task, it will perform the necessary actions and provide the expected results, just like the task examples.
+When you execute a script for a specific task, it will perform the necessary actions and provide the results, compare it to the task examples.
 
 ## Task 8 Automation
 
