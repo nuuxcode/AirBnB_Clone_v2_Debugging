@@ -32,13 +32,13 @@ echo ""
 # Drop the hbnb_dev_db database if it exists
 echo "#--> Dropping hbnb_dev_db database if it exists..."
 echo ""
-echo "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;" | sudo mysql -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD
+echo "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;" | sudo mysql -h$YOUR_MYSQL_SERVER -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
 
 echo ""
 # Execute MySQL setup script
 echo "#--> Executing MySQL setup script..."
 echo ""
-cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD
+cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_MYSQL_SERVER
 
 echo ""
 echo "--------------"

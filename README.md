@@ -1,6 +1,6 @@
 # AirBnB v2 Debugging with Bash Scripts
 
-https://github.com/nuuxcode/AirBnB_Clone_v2_Test/assets/24565896/7fc6c299-9052-4af0-8c7e-0975d73c9ef5
+https://github.com/nuuxcode/AirBnB_Clone_v2_Debugging/assets/24565896/8984bd45-0643-4e02-bba3-fe509dfd1623
 
 ## Introduction
 
@@ -18,9 +18,9 @@ To get started, follow these steps:
 ```shell
 cd AirBnB_Clone_v2_Debugging
 ```
-3. Copy all the files to the AirBnB directory (sh files and config.txt):
+3. Copy all the files to the AirBnB directory (sh files and config.txt without readme):
 ```shell
-cp * /Your/AirBnb/Path
+cp c* /Your/AirBnb/Path
 ```
 4. Change your working directory to the AirBnB project
 ```shell
