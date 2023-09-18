@@ -4,7 +4,7 @@ https://github.com/nuuxcode/AirBnB_Clone_v2_Test/assets/24565896/7fc6c299-9052-4
 
 ## Introduction
 
-Debugging AirBnB projects can become challenging as you progress through related tasks. To make the process easier, we've created a set of Bash scripts that allow you to test and verify various tasks effortlessly. Currently, we have scripts for tasks 6, 7, 8, and 10, and we plan to add more for upcoming tasks.
+Debugging AirBnB projects can become challenging as you progress through related tasks. To make the process easier, we've created a set of Bash scripts that allow you to test and verify various tasks effortlessly. Currently, we have scripts for tasks 6, 7, 8, and 10, and we plan to add more for missings tasks.
 
 ## Usage
 
