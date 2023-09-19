@@ -66,7 +66,7 @@ echo ""
 # Create a new Place using the captured City ID and User ID
 echo "#--> Creating a new Place with City ID: $city_id and User ID: $user_id..."
 echo ""
-place_output=$(echo 'create Place city_id="'$city_id'" user_id="'$user_id'" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER HBNB_MYSQL_PWD=$HBNB_MYSQL_PWD HBNB_MYSQL_HOST=$HBNB_MYSQL_HOST HBNB_MYSQL_DB=$HBNB_MYSQL_DB $HBNB_TYPE_STORAGE=db "$console_path" | tee /dev/tty)
+place_output=$(echo 'create Place city_id="'$city_id'" user_id="'$user_id'" name="Lovely_place" number_rooms=3 number_bathrooms=1 max_guest=6 price_by_night=120 latitude=37.773972 longitude=-122.431297' | sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER HBNB_MYSQL_PWD=$HBNB_MYSQL_PWD HBNB_MYSQL_HOST=$HBNB_MYSQL_HOST HBNB_MYSQL_DB=$HBNB_MYSQL_DB HBNB_TYPE_STORAGE=$HBNB_TYPE_STORAGE "$console_path" | tee /dev/tty)
 place_id=$(echo "$place_output" | grep -o -E '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
 echo "#--> Place ID: $place_id"
 echo ""
