@@ -64,7 +64,7 @@ echo "#--> User ID: $user_id"
 
 
 # Create a new Review using the captured Place ID and User ID
-echo "#--> Creating a new Review with City ID: $place_id and User ID: $user_id..."
+echo "#--> Creating a new Review with Place ID: $place_id and User ID: $user_id..."
 echo ""
 review_output=$(echo 'create Review place_id="'$place_id'" user_id="'$user_id'" text="Amazing_place,_huge_kitchen"' | sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER HBNB_MYSQL_PWD=$HBNB_MYSQL_PWD HBNB_MYSQL_HOST=$HBNB_MYSQL_HOST HBNB_MYSQL_DB=$HBNB_MYSQL_DB HBNB_TYPE_STORAGE=$HBNB_TYPE_STORAGE $console_path | tee /dev/tty)
 review_id=$(echo "$review_output" | grep -o -E '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}')
@@ -78,7 +78,7 @@ echo 'all Review' | sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER HBNB_MYSQL_PWD=$HBN
 
 echo ""
 # Execute SQL query to list all Reviews
-echo "#--> Executing SQL query to list all Places..."
+echo "#--> Executing SQL query to list all Reviews..."
 echo ""
 echo 'SELECT * FROM reviews\G' | sudo mysql -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD -h$HBNB_MYSQL_HOST $HBNB_MYSQL_DB
 
