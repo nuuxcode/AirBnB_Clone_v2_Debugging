@@ -22,7 +22,11 @@ if [ ! -f "$sql_path" ]; then
     echo "#--> Error: 'setup_mysql_dev.sql' not found in '$current_path'."
     exit 1
 fi
-
+# Check if the required file exists
+if [ ! -f "$amenities" ]; then
+    echo "#--> Error: 'main_place_amenities.py' not found in '$current_path'."
+    exit 1
+fi
 echo ""
 echo "--------------"
 echo "--- TASK10 ---"
