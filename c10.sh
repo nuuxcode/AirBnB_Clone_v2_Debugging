@@ -31,13 +31,13 @@ echo ""
 # Drop the hbnb_dev_db database if it exists
 echo "#--> Dropping hbnb_dev_db database if it exists..."
 echo ""
-echo "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_MYSQL_SERVER
+echo "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
 
 echo ""
 # Execute MySQL setup script
 echo "#--> Executing MySQL setup script..."
 echo ""
-cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_MYSQL_SERVER
+cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
 
 echo ""
 # Set environment variables and run the Python script

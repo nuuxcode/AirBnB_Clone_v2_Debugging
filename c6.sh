@@ -38,7 +38,7 @@ echo ""
 # Execute MySQL setup script
 echo "#--> Executing MySQL setup script..."
 echo ""
-cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_MYSQL_SERVER
+cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
 
 echo ""
 echo "--------------"
