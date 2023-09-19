@@ -80,7 +80,7 @@ echo ""
 # Execute SQL query to list all Places
 echo "#--> Executing SQL query to list all Places..."
 echo ""
-echo 'SELECT * FROM places\G' | sudo mysql -uhbnb_dev -p$HBNB_MYSQL_PWD -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER $HBNB_MYSQL_DB
+echo 'SELECT * FROM places\G' | sudo mysql -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD -h$HBNB_MYSQL_HOST $HBNB_MYSQL_DB
 
 echo ""
 # Save the Place ID to a file for reference
