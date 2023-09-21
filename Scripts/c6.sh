@@ -4,6 +4,27 @@ echo "----------------------"
 echo "--- Database Setup ---"
 echo "----------------------"
 echo ""
+if sudo service mysql status >/dev/null 2>&1; then
+    echo "#--| "
+    echo "#--> MySQL is already running."
+    echo "#--| "
+else
+    echo "#--| "
+    echo "#--> MySQL is not running. Starting MySQL..."
+    echo "#--| "
+    echo ""
+    sudo service mysql start
+
+    if sudo service mysql status >/dev/null 2>&1; then
+        echo "#--| "
+        echo "#--> MySQL is now running."
+        echo "#--| "
+    else
+        echo "#--| "
+        echo "#-->Failed to start MySQL. Please check your MySQL installation."
+        echo "#--| "
+    fi
+fi
 current_path=$(pwd)
 config="$current_path/config.txt"
 if [ ! -f "$config" ]; then
@@ -37,7 +58,7 @@ run_mysql_command() {
         done
         result=$($mysql_command <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
     else
-        result=$(sudo mysql <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
+        result=$(sudo mysql -h"$HBNB_MYSQL_HOST" -u"$YOUR_USER_MYSQL" -p"$YOUR_PASSWORD_MYSQL" <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
     fi
 
     if [[ $result == *"Access denied"* ]]; then
@@ -68,19 +89,19 @@ run_console_command() {
         full_command="echo '$command' | sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER HBNB_MYSQL_PWD=$HBNB_MYSQL_PWD HBNB_MYSQL_HOST=$HBNB_MYSQL_HOST HBNB_MYSQL_DB=$HBNB_MYSQL_DB HBNB_TYPE_STORAGE=$HBNB_TYPE_STORAGE $console_path"
     fi
 
-    result=$(eval "$full_command" 2>&1)
+    result=$(eval "$full_command" 2>&1 | grep -v "MYSQL_OPT_RECONNECT is deprecated and will be removed in a future version")
 
     if [[ -n "$result" ]]; then
         echo "$result"
     fi
 }
 echo "#--| "
-echo "#--> Dropping hbnb_dev_db database if it exists:"
+echo "#--> Dropping hbnb_dev_db database if it exists"
 echo "#--| "
 run_mysql_command "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;"
 echo "#--| "
 # Execute MySQL setup script
-echo "#--> Executing MySQL setup script to make database ready:"
+echo "#--> Executing MySQL setup script to make database ready"
 echo "#--| "
 run_mysql_command "CREATE DATABASE IF NOT EXISTS $HBNB_MYSQL_DB;"
 run_mysql_command "CREATE USER IF NOT EXISTS '"$HBNB_MYSQL_USER"'@'"$HBNB_MYSQL_HOST"' IDENTIFIED BY '"$HBNB_MYSQL_PWD"';"

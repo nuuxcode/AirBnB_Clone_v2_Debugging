@@ -4,6 +4,27 @@ echo "----------------------"
 echo "---- Script Setup ----"
 echo "----------------------"
 echo ""
+if sudo service mysql status >/dev/null 2>&1; then
+    echo "#--| "
+    echo "#--> MySQL is already running."
+    echo "#--| "
+else
+    echo "#--| "
+    echo "#--> MySQL is not running. Starting MySQL..."
+    echo "#--| "
+    echo ""
+    sudo service mysql start
+
+    if sudo service mysql status >/dev/null 2>&1; then
+        echo "#--| "
+        echo "#--> MySQL is now running."
+        echo "#--| "
+    else
+        echo "#--| "
+        echo "#-->Failed to start MySQL. Please check your MySQL installation."
+        echo "#--| "
+    fi
+fi
 current_path=$(pwd)
 config="$current_path/config.txt"
 amenities="$current_path/main_place_amenities.py"
@@ -45,7 +66,7 @@ run_mysql_command() {
         done
         result=$($mysql_command <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
     else
-        result=$(sudo mysql <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
+        result=$(sudo mysql -h"$HBNB_MYSQL_HOST" -u"$YOUR_USER_MYSQL" -p"$YOUR_PASSWORD_MYSQL" <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
     fi
 
     if [[ $result == *"Access denied"* ]]; then
