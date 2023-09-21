@@ -38,6 +38,9 @@ HBNB_MYSQL_PWD=hbnb_dev_pwd
 HBNB_MYSQL_HOST=localhost
 HBNB_MYSQL_DB=hbnb_dev_db
 HBNB_TYPE_STORAGE=db
+YOUR_MYSQL_SERVER=localhost
+YOUR_USER_MYSQL=root
+YOUR_PASSWORD_MYSQL=root
 ```
 Ensure that you have the necessary Python files console.py and (main_place_amenities.py for Task10) and the SQL setup file (setup_mysql_dev.sql) in the same folder as the scripts before running them.
 
