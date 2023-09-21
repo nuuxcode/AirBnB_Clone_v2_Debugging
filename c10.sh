@@ -1,73 +1,117 @@
-#!/bin/bash
-
-# Get the current working directory (path from where the script is called)
+clear
+echo ""
+echo "----------------------"
+echo "---- Script Setup ----"
+echo "----------------------"
+echo ""
 current_path=$(pwd)
-
 config="$current_path/config.txt"
-if [ ! -f "$config" ]; then
-    echo "#--> Error: 'config.txt' not found in '$current_path'."
-    exit 1
-fi
-
-# Read the configuration from config.txt
-source $config
-
-# Set the path to setup_mysql_dev.sql
-sql_path="$current_path/setup_mysql_dev.sql"
-
 amenities="$current_path/main_place_amenities.py"
-
-# Check if the required file exists
-if [ ! -f "$sql_path" ]; then
-    echo "#--> Error: 'setup_mysql_dev.sql' not found in '$current_path'."
+if [ ! -f "$config" ]; then
+    echo "#--| "
+    echo "#--> Error: 'config.txt' not found in '$current_path'."
+    echo "#--> when you did clone repo there was file config.txt"
+    echo "#--> make sure to copy it to where console.py"
+    echo "#--> also you can put your config there if you dont use default"
+    echo "#--| "
     exit 1
 fi
-# Check if the required file exists
+source $config
 if [ ! -f "$amenities" ]; then
+    echo "#--| "
     echo "#--> Error: 'main_place_amenities.py' not found in '$current_path'."
+    echo "#--> its in task you can make it or copy it from repo"
+    echo "#--| "
     exit 1
 fi
-echo ""
-echo "--------------"
-echo "--- TASK10 ---"
-echo "--------------"
-echo ""
-# Drop the hbnb_dev_db database if it exists
-echo "#--> Dropping hbnb_dev_db database if it exists..."
-echo ""
-echo "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
+console_path="$current_path/console.py"
+if [ ! -f "$console_path" ]; then
+    echo "#--| "
+    echo "#--> Error: 'console.py' not found in '$current_path'."
+    echo "#--> make sure you put this script in same path of console.py"
+    echo "#--| "
+    exit 1
+fi
+run_mysql_command() {
+    command="$1"
+    shift  # Shift to remove the first argument (the command)
 
-echo ""
+    # Check if additional arguments are provided
+    if [ $# -ge 1 ]; then
+        mysql_command="sudo mysql"
+        while [ $# -ge 1 ]; do
+            mysql_command="$mysql_command $1"
+            shift
+        done
+        result=$($mysql_command <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
+    else
+        result=$(sudo mysql <<< "$command" 2>&1 | grep -v "Using a password on the command line interface can be insecure")
+    fi
+
+    if [[ $result == *"Access denied"* ]]; then
+        echo "$result"
+        echo ""
+        echo "Check config.txt and make sure you have"
+        echo "  correct settings for your MySQL database."
+        echo ""
+        echo "It's possible that you changed the default password"
+        echo "  when you installed MySQL."
+        echo ""
+        echo "If you've updated the password, update config.txt accordingly."
+        echo ""
+        exit 1
+    fi
+    if [[ -n "$result" ]]; then
+        echo "$result"
+    fi
+}
+echo "#--| "
+echo "#--> Dropping hbnb_dev_db database if it exists"
+echo "#--| "
+run_mysql_command "DROP DATABASE IF EXISTS $HBNB_MYSQL_DB;"
 # Execute MySQL setup script
-echo "#--> Executing MySQL setup script..."
+echo "#--> Executing MySQL setup script to make database ready"
+echo "#--| "
+run_mysql_command "CREATE DATABASE IF NOT EXISTS $HBNB_MYSQL_DB;"
+run_mysql_command "CREATE USER IF NOT EXISTS '$HBNB_MYSQL_USER'@'$HBNB_MYSQL_HOST' IDENTIFIED BY '$HBNB_MYSQL_PWD';"
+run_mysql_command "GRANT SELECT ON performance_schema.* TO '$HBNB_MYSQL_USER'@'$HBNB_MYSQL_HOST';"
+run_mysql_command "GRANT ALL PRIVILEGES ON $HBNB_MYSQL_DB.* TO '$HBNB_MYSQL_USER'@'$HBNB_MYSQL_HOST';"
 echo ""
-cat "$sql_path" | sudo mysql -h$HBNB_MYSQL_HOST -u$YOUR_USER_MYSQL -p$YOUR_PASSWORD_MYSQL
-
+echo "---------------"
+echo "---- TASK10 ---"
+echo "---------------"
 echo ""
-# Set environment variables and run the Python script
-echo "#--> Running main_place_amenities.py..."
+echo "#--| "
+echo "#--> Run main_place_amenities.py:"
+echo "#--| "
 echo ""
-sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER \
+output=$(sudo -E HBNB_MYSQL_USER=$HBNB_MYSQL_USER \
     HBNB_MYSQL_PWD=$HBNB_MYSQL_PWD \
     HBNB_MYSQL_HOST=$HBNB_MYSQL_HOST \
     HBNB_MYSQL_DB=$HBNB_MYSQL_DB \
     HBNB_TYPE_STORAGE=$HBNB_TYPE_STORAGE \
-    $amenities
-
+    $amenities 2>&1 | grep -v "MYSQL_OPT_RECONNECT is deprecated and will be removed in a future version")
+if [[ -n "$output" ]]; then
+    echo "$output"
+fi
 echo ""
-# Query amenities and places tables
-echo "#--> Querying amenities table..."
+echo "#--| "
+echo "#--> Querying amenities table:"
+echo "#--| "
 echo ""
-echo 'SELECT * FROM amenities\G' | sudo mysql -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD $HBNB_MYSQL_DB
-
+run_mysql_command 'SELECT * FROM amenities\G' -h"$HBNB_MYSQL_HOST" -u"$HBNB_MYSQL_USER" -p"$HBNB_MYSQL_PWD" "$HBNB_MYSQL_DB"
 echo ""
-echo "#--> Querying places table..."
+echo "#--| "
+echo "#--> Querying places table:"
+echo "#--| "
 echo ""
-echo 'SELECT * FROM places\G' | sudo mysql -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD $HBNB_MYSQL_DB
-
+run_mysql_command 'SELECT * FROM places\G' -h"$HBNB_MYSQL_HOST" -u"$HBNB_MYSQL_USER" -p"$HBNB_MYSQL_PWD" "$HBNB_MYSQL_DB"
 echo ""
-echo "#--> Querying place_amenity table..."
+echo "#--| "
+echo "#--> Querying place_amenity table:"
+echo "#--| "
 echo ""
-echo 'SELECT * FROM place_amenity\G' | sudo mysql -h$HBNB_MYSQL_HOST -u$HBNB_MYSQL_USER -p$HBNB_MYSQL_PWD $HBNB_MYSQL_DB
-
+run_mysql_command 'SELECT * FROM place_amenity\G' -h"$HBNB_MYSQL_HOST" -u"$HBNB_MYSQL_USER" -p"$HBNB_MYSQL_PWD" "$HBNB_MYSQL_DB"
+echo ""
+echo "#--| "
 echo ""
